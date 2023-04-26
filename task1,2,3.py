@@ -1,4 +1,5 @@
 import stat_formula as f
+import math
 
 # 1) Случайная непрерывная величина A имеет равномерное распределение на промежутке (200, 800].
 # Найдите ее среднее значение и дисперсию.
@@ -21,8 +22,24 @@ dispersion2 = 0.2
 a2 = 0.5
 # решаем через формулу дисперсии для равномерн. распределения, 
 # в полученном квадратном уравнении 2 корня, но подходит только тот, который больше левой границы
-b2 = 2.2 
-exp_val2 = f.unif_dist_exp_val(0.5,2.2) # 1.35
+# ((b-a)**2)/12
+# (b2**2 -2*a2*b2 + a2**2)/12 = dispersion2
+# (b2**2 -2*a2*b2 + a2**2) = dispersion2*12
+# (b2**2 -2*a2*b2 + a2**2) - dispersion2*12 = 0
+# b2**2 - 2*a2*b2 + (a2**2 - dispersion2*12) = 0
+
+def find_dec(a,b,c):
+    d = b**2 - 4*a*c
+    if d < 0:
+        return "no decision"
+    elif d == 0:
+        return (-1*b/2*a)
+    else:
+        return [(-1*b+math.sqrt(d)/2*a),(-1*b-math.sqrt(d)/2*a)]
+
+print(find_dec(1,(-2*a2),(a2**2-dispersion2*12)))
+b2 = 2.549
+exp_val2 = f.unif_dist_exp_val(a2,b2) # 1.5245
 print(exp_val2)
 
 # ------------------------------------
